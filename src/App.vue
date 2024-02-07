@@ -2,18 +2,7 @@
   <a-layout class="h-screen">
     <Menu v-model:collapsed="collapsed" />
     <a-layout>
-      <a-layout-header style="background: #fff; padding: 0">
-        <menu-unfold-outlined
-          v-if="collapsed"
-          class="trigger"
-          @click="() => (collapsed = !collapsed)"
-        />
-        <menu-fold-outlined
-          v-else
-          class="trigger"
-          @click="() => (collapsed = !collapsed)"
-        />
-      </a-layout-header>
+      <Header v-model:collapsed="collapsed" />
       <a-layout-content
         :style="{
           margin: '24px 16px',
@@ -30,7 +19,7 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import Menu from "./components/core/Menu.vue";
-import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons-vue";
+import Header from "./components/core/Header.vue";
 
 const collapsed = ref<boolean>(false);
 </script>
