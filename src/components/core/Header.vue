@@ -1,5 +1,5 @@
 <template>
-  <a-layout-header class="bg-sky-700 pl-7 pr-0 text-white">
+  <a-layout-header class="bg-sky-700 pl-7 pr-5 text-white">
     <div style="display: flex; flex-direction: row; align-items: center">
       <menu-unfold-outlined
         v-if="collapsed"
@@ -7,10 +7,12 @@
         @click="toggleCollapsed"
       />
       <menu-fold-outlined v-else class="trigger" @click="toggleCollapsed" />
-      <span style="flex-grow: 1; margin-left: 10px">OTAKU SHOPPU STOCK</span>
-      <a-button type="text">
+      <span style="flex-grow: 1; margin-left: 10px; font-size: 18px"
+        >OTAKU SHOPPU STOCK</span
+      >
+      <a-button type="text" class="p-0">
         <LogoutOutlined style="color: white" />
-        <span style="color: white">Logout</span>
+        <span style="color: white; font-size: 18px">Logout</span>
       </a-button>
     </div>
   </a-layout-header>
@@ -41,4 +43,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.trigger {
+  font-size: 18px;
+  cursor: pointer;
+}
+</style>
