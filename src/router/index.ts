@@ -2,6 +2,7 @@ import * as vueRouter from "vue-router";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import Stock from "../views/Stock.vue";
+import Report from "@/views/Report.vue";
 
 const routes: Array<vueRouter.RouteRecordRaw> = [
   {
@@ -19,6 +20,11 @@ const routes: Array<vueRouter.RouteRecordRaw> = [
     meta: { isSecured: true },
     name: "stock",
     component: Stock,
+  },
+  {
+    path: "/report",
+    name: "report",
+    component: Report,
   },
   {
     path: "/",
