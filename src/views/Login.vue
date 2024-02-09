@@ -71,7 +71,7 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons-vue";
 import { reactive } from "vue";
 import type { User } from "@/models/user.model";
 import { Rule } from "ant-design-vue/lib/form";
-import httpClient from "@/services/httpClient";
+import api from "@/services/auth_api";
 
 export default {
   components: {
@@ -82,13 +82,11 @@ export default {
   setup() {
     const formState = reactive<User>({
       username: "admin",
-      password: "1234",
+      password: "password123",
     });
 
     const handleFinish = async (values: any) => {
-      const result = await httpClient.post("/login", values);
-
-      alert(JSON.stringify(result.data));
+      api.login(values);
     };
 
     const handleFinishFailed = (error: any) => {
