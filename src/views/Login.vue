@@ -71,6 +71,7 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons-vue";
 import { reactive } from "vue";
 import type { User } from "@/models/user.model";
 import { Rule } from "ant-design-vue/lib/form";
+import axios from "axios";
 
 export default {
   components: {
@@ -84,8 +85,13 @@ export default {
       password: "1234",
     });
 
-    const handleFinish = (values: any) => {
-      alert(JSON.stringify(values));
+    const handleFinish = async (values: any) => {
+      const result = await axios.post(
+        "http://localhost:3001/api/v2/login",
+        values
+      );
+
+      alert(JSON.stringify(result.data));
     };
 
     const handleFinishFailed = (error: any) => {
