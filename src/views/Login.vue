@@ -16,13 +16,11 @@
       <a-form
         layout="vertical"
         :model="formState"
+        :rules="rules"
         @finish="handleFinish"
         @finishFailed="handleFinishFailed"
       >
-        <a-form-item
-          name="username"
-          :rules="[{ required: true, message: 'Please input your username!' }]"
-        >
+        <a-form-item name="username">
           <a-input placeholder="Username" v-model:value="formState.username">
             <template #prefix
               ><UserOutlined style="color: rgb(0, 0.25)"
@@ -30,10 +28,7 @@
           </a-input>
         </a-form-item>
 
-        <a-form-item
-          name="password"
-          :rules="[{ required: true, message: 'Please input your password!' }]"
-        >
+        <a-form-item name="password">
           <a-input-password
             type="password"
             placeholder="Password"
@@ -69,10 +64,9 @@
 
 <script lang="ts">
 import { UserOutlined, LockOutlined } from "@ant-design/icons-vue";
-import { defineComponent, reactive, computed } from "vue";
-import type { UnwrapRef } from "vue";
-import type { FormProps } from "ant-design-vue";
+import { reactive } from "vue";
 import type { User } from "@/models/user.model";
+import { Rule } from "ant-design-vue/lib/form";
 
 export default {
   components: {
@@ -99,7 +93,36 @@ export default {
       formState.password = "";
     };
 
-    return { formState, handleFinish, handleReset, handleFinishFailed };
+    let validateUsername = async (_rule: Rule, value: string) => {
+      if (value === "") {
+        return Promise.reject("Please input the username");
+      } else if (value.length <= 4) {
+        return Promise.reject("username must greater than 4 letters");
+      } else {
+        return Promise.resolve();
+      }
+    };
+
+    let validatePassword = async (_rule: Rule, value: string) => {
+      if (value === "") {
+        return Promise.reject("Please input the password");
+      } else if (value.length <= 1) {
+        return Promise.reject("Passwowrd must greater than 10 letters");
+      } else {
+        return Promise.resolve();
+      }
+    };
+
+    const rules: Record<string, Rule[]> = {
+      username: [
+        { required: true, validator: validateUsername, trigger: "change" },
+      ],
+      password: [
+        { required: true, validator: validatePassword, trigger: "change" },
+      ],
+    };
+
+    return { formState, handleFinish, handleReset, handleFinishFailed, rules };
   },
 };
 </script>
