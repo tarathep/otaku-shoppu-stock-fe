@@ -5,7 +5,7 @@
       style="
         box-shadow: rgb(0, 0, 0.15) 0px 2px 5px 0px;
         width: 350px;
-        height: 600px;
+        height: 620px;
       "
     >
       <template #cover>
@@ -14,40 +14,53 @@
       <h1 className="text-2xl font-bold pb-3">Login</h1>
 
       <a-form
-        name="basic"
+        layout="vertical"
         :model="formState"
-        :label-col="{ span: 8 }"
-        :wrapper-col="{ span: 16 }"
         @finish="handleFinish"
-        autocomplete="off"
+        @finishFailed="handleFinishFailed"
       >
         <a-form-item
-          label="Username"
           name="username"
           :rules="[{ required: true, message: 'Please input your username!' }]"
         >
-          <a-input v-model:value="formState.username" />
+          <a-input placeholder="Username" v-model:value="formState.username">
+            <template #prefix
+              ><UserOutlined style="color: rgb(0, 0.25)"
+            /></template>
+          </a-input>
         </a-form-item>
 
         <a-form-item
-          label="Password"
           name="password"
           :rules="[{ required: true, message: 'Please input your password!' }]"
         >
-          <a-input-password v-model:value="formState.password" />
-        </a-form-item>
-
-        <a-form-item name="remember" :wrapper-col="{ offset: 8, span: 16 }">
-          <a-checkbox>Remember me</a-checkbox>
-        </a-form-item>
-
-        <a-form-item :wrapper-col="{ offset: 8, span: 16 }">
-          <a-button type="primary" html-type="submit">Submit</a-button>
-        </a-form-item>
-        <a-form-item :wrapper-col="{ offset: 8, span: 16 }">
-          <a-button type="ghost" html-type="button" @click="handleReset"
-            >Reset</a-button
+          <a-input-password
+            type="password"
+            placeholder="Password"
+            v-model:value="formState.password"
           >
+            <template #prefix
+              ><LockOutlined style="color: rgb(0, 0, 0.25)"
+            /></template>
+          </a-input-password>
+        </a-form-item>
+
+        <a-form-item>
+          <a-space direction="vertical" style="width: 100%" size="small">
+            <a-button block type="primary" html-type="submit">Login</a-button>
+
+            <a-button block type="default" html-type="button"
+              >Register</a-button
+            >
+
+            <a-button
+              block
+              type="default"
+              html-type="button"
+              @click="handleReset"
+              >Reset</a-button
+            >
+          </a-space>
         </a-form-item>
       </a-form>
     </a-card>
@@ -77,12 +90,16 @@ export default {
       alert(JSON.stringify(values));
     };
 
+    const handleFinishFailed = (error: any) => {
+      alert(JSON.stringify(error));
+    };
+
     const handleReset = () => {
       formState.username = "";
       formState.password = "";
     };
 
-    return { formState, handleFinish, handleReset };
+    return { formState, handleFinish, handleReset, handleFinishFailed };
   },
 };
 </script>
