@@ -44,7 +44,11 @@
           <a-space direction="vertical" style="width: 100%" size="small">
             <a-button block type="primary" html-type="submit">Login</a-button>
 
-            <a-button block type="default" html-type="button"
+            <a-button
+              block
+              type="default"
+              html-type="button"
+              @click="$router.push('/register')"
               >Register</a-button
             >
 
@@ -122,7 +126,13 @@ export default {
       ],
     };
 
-    return { formState, handleFinish, handleReset, handleFinishFailed, rules };
+    return {
+      formState,
+      handleFinish,
+      handleReset,
+      handleFinishFailed,
+      rules,
+    };
   },
 };
 </script>
