@@ -62,8 +62,15 @@
           </a-space>
         </a-form-item>
       </a-form>
+
+      <!-- V1 -->
       <span @click="counterV1Store.increment"
         >{{ counterV1Store.count }} | {{ counterV1Store.doubleCount }}</span
+      >
+      <br />
+      <!-- V2 -->
+      <span @click="counterV2Store.increment"
+        >{{ counterV2Store.count }} | {{ counterV2Store.doubleCount }}</span
       >
     </a-card>
   </div>
@@ -76,6 +83,7 @@ import type { User } from "@/models/user.model";
 import { Rule } from "ant-design-vue/lib/form";
 import api from "@/services/auth_api";
 import { useCounterV1Store } from "@/store/useCounterV1Store";
+import { useCounterV2Store } from "@/store/useCounterV2Store";
 
 export default {
   components: {
@@ -85,6 +93,7 @@ export default {
   name: "Login",
   setup() {
     const counterV1Store = useCounterV1Store();
+    const counterV2Store = useCounterV2Store();
 
     const formState = reactive<User>({
       username: "admin",
@@ -140,6 +149,7 @@ export default {
       handleFinishFailed,
       rules,
       counterV1Store,
+      counterV2Store,
     };
   },
 };
