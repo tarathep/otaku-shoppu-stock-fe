@@ -42,7 +42,13 @@
 
         <a-form-item>
           <a-space direction="vertical" style="width: 100%" size="small">
-            <a-button block type="primary" html-type="submit">Confirm</a-button>
+            <a-button
+              :disabled="authStore.fetchingStatus === FetchingStatus.fetching"
+              block
+              type="primary"
+              html-type="submit"
+              >Confirm</a-button
+            >
 
             <a-button
               block
@@ -55,6 +61,11 @@
         </a-form-item>
       </a-form>
     </a-card>
+    <a-alert
+      v-if="authStore.fetchingStatus === FetchingStatus.failed"
+      message="Register failed"
+      type="error"
+    />
   </div>
 </template>
 
@@ -63,7 +74,8 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons-vue";
 import { reactive } from "vue";
 import type { User } from "@/models/user.model";
 import { Rule } from "ant-design-vue/lib/form";
-import { useCounterV1Store } from "@/store/useCounterV1Store";
+import { useAuthStore } from "@/store/useAuthStore";
+import { FetchingStatus } from "@/models/fetchingStatus.enum";
 
 export default {
   components: {
@@ -72,7 +84,7 @@ export default {
   },
   name: "Register",
   setup() {
-    const counterV1Store = useCounterV1Store();
+    const authStore = useAuthStore();
 
     const formState = reactive<User>({
       username: "",
@@ -80,7 +92,7 @@ export default {
     });
 
     const handleFinish = (values: any) => {
-      alert(JSON.stringify(values));
+      authStore.register(values);
     };
 
     const handleFinishFailed = (error: any) => {
@@ -127,7 +139,8 @@ export default {
       handleReset,
       handleFinishFailed,
       rules,
-      counterV1Store,
+      authStore,
+      FetchingStatus,
     };
   },
 };
