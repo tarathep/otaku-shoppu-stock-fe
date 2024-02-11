@@ -10,7 +10,7 @@
       <span style="flex-grow: 1; margin-left: 10px; font-size: 18px"
         >OTAKU SHOPPU STOCK</span
       >
-      <a-button type="text" class="p-0">
+      <a-button type="text" class="p-0" @click="authStore.logout">
         <LogoutOutlined style="color: white" />
         <span style="color: white; font-size: 18px">Logout</span>
       </a-button>
@@ -24,6 +24,7 @@ import {
   MenuFoldOutlined,
   LogoutOutlined,
 } from "@ant-design/icons-vue";
+import { useAuthStore } from "@/store/useAuthStore";
 
 export default {
   name: "Header",
@@ -35,10 +36,12 @@ export default {
     LogoutOutlined,
   },
   setup(props, { emit }) {
+    const authStore = useAuthStore();
+
     const toggleCollapsed = () => {
       emit("update:collapsed", !props.collapsed);
     };
-    return { toggleCollapsed };
+    return { toggleCollapsed, authStore };
   },
 };
 </script>
