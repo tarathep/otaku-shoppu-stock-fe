@@ -5,7 +5,7 @@ import { FetchingStatus } from "@/models/fetchingStatus.enum";
 import { User } from "@/models/user.model";
 import api from "@/services/api";
 
-export const useCounterV1Store = defineStore("auth", () => {
+export const useAuthStore = defineStore("auth", () => {
   const session = reactive<Session>({ isLoggedIn: false });
   const fetchingStatus = ref<FetchingStatus>(FetchingStatus.init);
 
@@ -45,5 +45,5 @@ export const useCounterV1Store = defineStore("auth", () => {
     }
   }
 
-  return { session, fetchingStatus, login };
+  return { session, fetchingStatus, login, register };
 });

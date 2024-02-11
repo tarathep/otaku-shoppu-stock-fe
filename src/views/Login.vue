@@ -42,7 +42,13 @@
 
         <a-form-item>
           <a-space direction="vertical" style="width: 100%" size="small">
-            <a-button block type="primary" html-type="submit">Login</a-button>
+            <a-button
+              :disabled="authStore.fetchingStatus === FetchingStatus.fetching"
+              block
+              type="primary"
+              html-type="submit"
+              >Login</a-button
+            >
 
             <a-button
               block
@@ -63,6 +69,12 @@
         </a-form-item>
       </a-form>
     </a-card>
+
+    <a-alert
+      v-if="authStore.fetchingStatus === FetchingStatus.failed"
+      message="Login failed"
+      type="error"
+    />
   </div>
 </template>
 
@@ -71,9 +83,8 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons-vue";
 import { reactive } from "vue";
 import type { User } from "@/models/user.model";
 import { Rule } from "ant-design-vue/lib/form";
-import api from "@/services/auth_api";
-import { useCounterV1Store } from "@/store/useCounterV1Store";
-import { useCounterV2Store } from "@/store/useCounterV2Store";
+import { useAuthStore } from "@/store/useAuthStore";
+import { FetchingStatus } from "@/models/fetchingStatus.enum";
 
 export default {
   components: {
@@ -82,8 +93,7 @@ export default {
   },
   name: "Login",
   setup() {
-    const counterV1Store = useCounterV1Store();
-    const counterV2Store = useCounterV2Store();
+    const authStore = useAuthStore();
 
     const formState = reactive<User>({
       username: "admin",
@@ -91,11 +101,11 @@ export default {
     });
 
     const handleFinish = async (values: any) => {
-      api.login(values);
+      authStore.login(values);
     };
 
     const handleFinishFailed = (error: any) => {
-      alert(JSON.stringify(error));
+      // alert(JSON.stringify(error));
     };
 
     const handleReset = () => {
@@ -138,8 +148,8 @@ export default {
       handleReset,
       handleFinishFailed,
       rules,
-      counterV1Store,
-      counterV2Store,
+      authStore,
+      FetchingStatus,
     };
   },
 };
