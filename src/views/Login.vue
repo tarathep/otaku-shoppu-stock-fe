@@ -62,16 +62,6 @@
           </a-space>
         </a-form-item>
       </a-form>
-
-      <!-- V1 -->
-      <span @click="counterV1Store.increment"
-        >{{ counterV1Store.count }} | {{ counterV1Store.doubleCount }}</span
-      >
-      <br />
-      <!-- V2 -->
-      <span @click="counterV2Store.increment"
-        >{{ counterV2Store.count }} | {{ counterV2Store.doubleCount }}</span
-      >
     </a-card>
   </div>
 </template>

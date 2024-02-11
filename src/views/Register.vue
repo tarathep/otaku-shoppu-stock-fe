@@ -54,9 +54,6 @@
           </a-space>
         </a-form-item>
       </a-form>
-      <span @click="counterV1Store.increment"
-        >{{ counterV1Store.count }} | {{ counterV1Store.doubleCount }}</span
-      >
     </a-card>
   </div>
 </template>
