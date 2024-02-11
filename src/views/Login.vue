@@ -62,6 +62,9 @@
           </a-space>
         </a-form-item>
       </a-form>
+      <span @click="counterV1Store.increment"
+        >{{ counterV1Store.count }} | {{ counterV1Store.doubleCount }}</span
+      >
     </a-card>
   </div>
 </template>
@@ -72,6 +75,7 @@ import { reactive } from "vue";
 import type { User } from "@/models/user.model";
 import { Rule } from "ant-design-vue/lib/form";
 import api from "@/services/auth_api";
+import { useCounterV1Store } from "@/store/useCounterV1Store";
 
 export default {
   components: {
@@ -80,6 +84,8 @@ export default {
   },
   name: "Login",
   setup() {
+    const counterV1Store = useCounterV1Store();
+
     const formState = reactive<User>({
       username: "admin",
       password: "password123",
@@ -133,6 +139,7 @@ export default {
       handleReset,
       handleFinishFailed,
       rules,
+      counterV1Store,
     };
   },
 };
