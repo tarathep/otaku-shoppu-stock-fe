@@ -24,7 +24,7 @@ import { ref } from "vue";
 import Menu from "@/components/core/Menu.vue";
 import Header from "./components/core/Header.vue";
 import Content from "./components/core/Content.vue";
-import { useAuthStore } from "@/store/useAuthStore";
+import { useAuthStore } from "@/stores/useAuthStore";
 
 const authStore = useAuthStore();
 authStore.restoreSession();
