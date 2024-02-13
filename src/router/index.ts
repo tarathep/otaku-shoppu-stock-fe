@@ -39,6 +39,7 @@ const routes: Array<vueRouter.RouteRecordRaw> = [
   },
   {
     path: "/report",
+    meta: { isSecured: true },
     name: "report",
     component: Report,
   },
