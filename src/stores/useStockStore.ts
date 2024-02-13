@@ -10,9 +10,25 @@ export const useStockStore = defineStore("stock", () => {
   const fetchingStatus = ref<FetchingStatus>(FetchingStatus.init);
 
   const loadProduct = async () => {
-    //http interceptor
-    const result = await api.getProducts();
-    stocks.value = result.data;
+    setLoading(FetchingStatus.fetching);
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      const res = await api.getProducts();
+      stocks.value = res.data;
+    } catch (error) {
+      setLoading(FetchingStatus.failed);
+      return [];
+    } finally {
+      setLoading(FetchingStatus.success);
+    }
+  };
+
+  const setLoading = (value: FetchingStatus) => {
+    fetchingStatus.value = value;
+  };
+
+  const isLoading = () => {
+    return fetchingStatus.value == FetchingStatus.fetching;
   };
 
   const getProductImage = (image: string) => {
@@ -24,6 +40,7 @@ export const useStockStore = defineStore("stock", () => {
   };
 
   return {
+    isLoading,
     getProductImage,
     loadProduct,
     fetchingStatus,
