@@ -16,7 +16,7 @@
       <template #bodyCell="{ column, record }">
         <template v-if="column.dataIndex === 'name'">
           <div class="tw-block tw-truncate tw-overflow-ellipsis">
-            <a>
+            <a @click="routeToEdit(record.id)">
               {{ record.name }}
             </a>
           </div>
@@ -69,7 +69,7 @@
 <script lang="ts">
 import { useStockStore } from "@/stores/useStockStore";
 import filters from "@/services/filters";
-import { useRoute, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 
 import { DeleteFilled } from "@ant-design/icons-vue";
 
@@ -110,12 +110,19 @@ export default {
         dataIndex: "action",
       },
     ];
+
     const stockStore = useStockStore();
+    const router = useRouter();
     stockStore.loadProduct();
+
+    const routeToEdit = (id: string) => {
+      router.push(`/stock-edit/${id}`);
+    };
     return {
       stockStore,
       columns,
       filters,
+      routeToEdit,
     };
   },
   components: { DeleteFilled },

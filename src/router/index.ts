@@ -2,6 +2,9 @@ import * as vueRouter from "vue-router";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import Stock from "@/views/Stock.vue";
+import StockCreate from "@/views/StockCreate.vue";
+import StockEdit from "@/views/StockEdit.vue";
+
 import Report from "@/views/Report.vue";
 import { useAuthStore } from "@/stores/useAuthStore";
 
@@ -21,6 +24,18 @@ const routes: Array<vueRouter.RouteRecordRaw> = [
     meta: { isSecured: true },
     name: "stock",
     component: Stock,
+  },
+  {
+    path: "/stock-create",
+    meta: { isSecured: true },
+    name: "stock-create",
+    component: StockCreate,
+  },
+  {
+    path: "/stock-edit/:id",
+    meta: { isSecured: true },
+    name: "stock-edit",
+    component: StockEdit,
   },
   {
     path: "/report",
