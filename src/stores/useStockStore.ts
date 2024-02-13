@@ -21,11 +21,16 @@ export const useStockStore = defineStore("stock", () => {
     return "http://localhost:3001/images/" + image;
   };
 
+  const onConfirmDelete = (id: String) => {
+    alert("ok" + id);
+  };
+
   return {
     getProductImage,
     loadProduct,
     fetchingStatus,
     stocks,
     autocompleteOptions,
+    onConfirmDelete,
   };
 });
