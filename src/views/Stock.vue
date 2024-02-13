@@ -1,5 +1,17 @@
 <template>
-  <div>
+  <a-row justify="space-around" align="center">
+    <a-col
+      :span="12"
+      :lg="6"
+      v-for="(item, i) in stockCardList"
+      :key="i"
+      class="tw-mb-2 tw-px-2"
+    >
+      <span>xxx</span>
+    </a-col>
+  </a-row>
+
+  <!-- <div>
     <a-table
       :columns="columns"
       :data-source="stockStore.stocks"
@@ -64,7 +76,7 @@
         </template>
       </template>
     </a-table>
-  </div>
+  </div> -->
 </template>
 <script lang="ts">
 import { useStockStore } from "@/stores/useStockStore";
@@ -75,6 +87,32 @@ import { DeleteFilled } from "@ant-design/icons-vue";
 
 export default {
   setup() {
+    const stockCardList = [
+      {
+        title: "Total",
+        amount: 1800,
+        icon: "ShoppingCartOutlined",
+        color: "#039C52",
+      },
+      {
+        title: "Sold-out",
+        amount: 12,
+        icon: "ExperimentOutlined",
+        color: "#F18F15",
+      },
+      {
+        title: "Return",
+        amount: 2,
+        icon: "RollbackOutlined",
+        color: "#D94231",
+      },
+      {
+        title: "Discount",
+        amount: 101,
+        icon: "GiftOutlined",
+        color: "#03B8EA",
+      },
+    ];
     const columns = [
       {
         title: "Id",
@@ -119,6 +157,7 @@ export default {
       router.push(`/stock-edit/${id}`);
     };
     return {
+      stockCardList,
       stockStore,
       columns,
       filters,
