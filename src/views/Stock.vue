@@ -224,7 +224,7 @@ export default {
     });
 
     onUnmounted(() => {
-      alert("Are you sure");
+      // alert("Are you sure");
     });
 
     const routeToEdit = (id: string) => {

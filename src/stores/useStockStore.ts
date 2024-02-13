@@ -41,6 +41,19 @@ export const useStockStore = defineStore("stock", () => {
     return "#c20502";
   };
 
+  const createProduct = async (data: any) => {
+    const formData = new FormData();
+    const { name, price, stock, image } = data;
+
+    formData.append("name", name);
+    formData.append("stock", stock.toString());
+    formData.append("price", price.toString());
+    if (image) {
+      formData.append("image", image!);
+    }
+    await api.addProduct(formData);
+  };
+
   const getProductImage = (image: string) => {
     return "http://localhost:3001/images/" + image;
   };
@@ -85,6 +98,7 @@ export const useStockStore = defineStore("stock", () => {
   };
 
   return {
+    createProduct,
     getColorTagByStock,
     searchWithDebounce,
     onSelect,
