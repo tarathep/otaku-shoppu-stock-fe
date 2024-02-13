@@ -7,5 +7,6 @@ export default {
   },
   plugins: [],
   corePlugins: { preflight: false }, // set not mainly css
+  prefix: "tw-"
 }
 

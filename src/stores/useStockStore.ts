@@ -17,7 +17,12 @@ export const useStockStore = defineStore("stock", () => {
     stocks.value = result.data;
   };
 
+  const getProductImage = (image: string) => {
+    return "http://localhost:3001/images/" + image;
+  };
+
   return {
+    getProductImage,
     loadProduct,
     fetchingStatus,
     stocks,
