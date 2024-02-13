@@ -54,6 +54,20 @@ export const useStockStore = defineStore("stock", () => {
     await api.addProduct(formData);
   };
 
+  const editProduct = async (data: any) => {
+    const formData = new FormData();
+    const { name, price, stock, image, id } = data;
+    formData.append("id", id);
+    formData.append("name", name);
+    formData.append("stock", stock.toString());
+    formData.append("price", price.toString());
+    if (image) {
+      formData.append("image", image!);
+    }
+
+    await api.updateProduct(formData);
+  };
+
   const getProductImage = (image: string) => {
     return "http://localhost:3001/images/" + image;
   };
@@ -98,6 +112,7 @@ export const useStockStore = defineStore("stock", () => {
   };
 
   return {
+    editProduct,
     createProduct,
     getColorTagByStock,
     searchWithDebounce,
