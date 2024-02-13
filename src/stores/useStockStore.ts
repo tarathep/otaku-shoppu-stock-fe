@@ -1,9 +1,8 @@
 import { FetchingStatus } from "@/models/fetchingStatus.enum";
 import { Product } from "@/models/product.model";
-import { server } from "@/services/constants";
-import axios from "axios";
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import api from "@/services/api";
 
 export const useStockStore = defineStore("stock", () => {
   const autocompleteOptions = ref<string[]>([]);
@@ -11,9 +10,8 @@ export const useStockStore = defineStore("stock", () => {
   const fetchingStatus = ref<FetchingStatus>(FetchingStatus.init);
 
   const loadProduct = async () => {
-    const result = await axios.get(
-      "http://localhost:3001/api/v2/" + server.PRODUCT_URL
-    );
+    //http interceptor
+    const result = await api.getProducts();
     stocks.value = result.data;
   };
 
