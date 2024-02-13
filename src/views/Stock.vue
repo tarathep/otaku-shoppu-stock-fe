@@ -24,7 +24,7 @@
             class="tw-w-full tw-drop-shadow-sm hover:tw-drop-shadow-md tw-transition-all"
             placeholder="Input search text"
             :options="stockStore.autocompleteOptions"
-            @search="stockStore.search"
+            @search="stockStore.searchWithDebounce"
             @select="stockStore.onSelect"
             :defaultActiveFirstOption="false"
             :filterOption="false"

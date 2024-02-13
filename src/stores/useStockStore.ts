@@ -3,6 +3,7 @@ import { Product } from "@/models/product.model";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import api from "@/services/api";
+import { debounce } from "lodash";
 
 export const useStockStore = defineStore("stock", () => {
   const autocompleteOptions = ref<string[]>([]);
@@ -39,6 +40,12 @@ export const useStockStore = defineStore("stock", () => {
     alert("ok" + id);
   };
 
+  const searchWithDebounce = async (value: string) => {
+    debouncedSearch(value);
+  };
+
+  const debouncedSearch = debounce(async (value: string) => search(value), 500); // Adjust the debounce delay as needed
+
   const search = async (value: String) => {
     if (value) {
       const result = await api.getProductByKeyword(value);
@@ -68,6 +75,7 @@ export const useStockStore = defineStore("stock", () => {
   };
 
   return {
+    searchWithDebounce,
     onSelect,
     search,
     isLoading,
