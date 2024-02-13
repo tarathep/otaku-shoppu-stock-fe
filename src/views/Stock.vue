@@ -1,5 +1,5 @@
 <template>
-  <a-row justify="space-around" align="center">
+  <a-row justify="space-around" align="center" class="tw-w-full tw-h-full">
     <!-- Head -->
     <a-col
       :span="12"
@@ -55,7 +55,11 @@
           :columns="columns"
           :data-source="stockStore.stocks"
           :loading="stockStore.isLoading()"
-          :pagination="{ position: ['topRight'] }"
+          :pagination="{ position: ['topRight'], pageSize: pageSizeComputed }"
+          :scroll="{
+            x: 'max-content',
+            y: '50vh',
+          }"
         >
           <template #headerCell="{ column }">
             <template v-if="column.dataIndex === 'name'">
@@ -131,7 +135,7 @@
   </a-row>
 </template>
 <script lang="ts">
-import { onMounted, onUnmounted } from "vue";
+import { computed, onMounted, onUnmounted } from "vue";
 import { useStockStore } from "@/stores/useStockStore";
 import StockCard from "@/components/cards/StockCard.vue";
 import filters from "@/services/filters";
@@ -143,6 +147,7 @@ import {
   QuestionCircleOutlined,
   DeleteOutlined,
 } from "@ant-design/icons-vue";
+import useBreakpoint from "ant-design-vue/lib/_util/hooks/useBreakpoint";
 
 export default {
   components: {
@@ -218,6 +223,12 @@ export default {
 
     const stockStore = useStockStore();
     const router = useRouter();
+    const breakpoint = useBreakpoint();
+    const pageSizeComputed = computed(() => {
+      if (breakpoint.value.xs || breakpoint.value.sm || breakpoint.value.md)
+        return 5;
+      return 7;
+    });
 
     onMounted(() => {
       stockStore.loadProduct();
@@ -236,6 +247,7 @@ export default {
       columns,
       filters,
       routeToEdit,
+      pageSizeComputed,
     };
   },
 };

@@ -1,5 +1,5 @@
 <template>
-  <a-layout-header class="bg-sky-700 pl-7 pr-5 text-white">
+  <a-layout-header class="tw-bg-sky-700 tw-pl-7 tw-pr-5 tw-text-white">
     <div style="display: flex; flex-direction: row; align-items: center">
       <menu-unfold-outlined
         v-if="collapsed"

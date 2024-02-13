@@ -1,7 +1,7 @@
 <template>
-  <a-layout class="h-screen">
+  <a-layout class="tw-min-h-screen">
     <Menu v-model:collapsed="collapsed" v-if="authStore.session.isLoggedIn" />
-    <a-layout>
+    <a-layout class="tw-h-full tw-w-full tw-overflow-auto">
       <Header
         v-model:collapsed="collapsed"
         v-if="authStore.session.isLoggedIn"
