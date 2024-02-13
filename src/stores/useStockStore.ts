@@ -39,7 +39,37 @@ export const useStockStore = defineStore("stock", () => {
     alert("ok" + id);
   };
 
+  const search = async (value: String) => {
+    if (value) {
+      const result = await api.getProductByKeyword(value);
+      stocks.value = result.data;
+      autocompleteOptions.value = result.data.map((product: any) => ({
+        value: product.name,
+      }));
+    } else {
+      await loadProduct();
+    }
+  };
+
+  const onSelect = async (value: any) => {
+    setLoading(FetchingStatus.fetching);
+    try {
+      if (value) {
+        const result = await api.getProductByKeyword(value);
+        stocks.value = result.data;
+      } else {
+        loadProduct();
+      }
+    } finally {
+      setTimeout(() => {
+        setLoading(FetchingStatus.success);
+      }, 1000);
+    }
+  };
+
   return {
+    onSelect,
+    search,
     isLoading,
     getProductImage,
     loadProduct,
